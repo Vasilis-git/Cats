@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FavoritesService } from './favorites.service';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, NgIf],
   template: `
     <div class="container-fluid" style="margin-top:80px">
       <h4>Favorites</h4>
