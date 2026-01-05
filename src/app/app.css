@@ -1,0 +1,6 @@
+.navbar-nav {
+  flex-wrap: nowrap; /* keep items on one line */
+}
+.nav-link {
+  white-space: nowrap; /* prevent link text from splitting */
+}

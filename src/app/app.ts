@@ -1,50 +1,42 @@
-import { Component, signal, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { ImageService } from './image.service';
-import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgFor],
+  imports: [RouterOutlet, RouterLink],
   template: `
-      <main>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        </head>
-        <body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top shadow">
+      <div class="container-fluid" id="navbar-content">  
+        <ul class="navbar-nav flex-row flex-nowrap mx-auto gap-3">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/']">Cats</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/favorites']">Favorites</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-          <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top shadow">
-            <div class="container-fluid">
-                <span class="navbar-text collapse navbar-collapse flex-grow-0 ms-0 me-auto">Cats</span>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-content" 
-                 title="Toggle navigation">  <span class="navbar-toggler-icon"></span> </button>
-                <form class="d-flex ms-2 me-1 flex-grow-1">
-                    <input class="form-control me-2 flex-grow-1" type="text" placeholder="Search...">
-                    <button type="button" class="btn btn-primary">Search</button>
-                </form>
-                <div class="collapse navbar-collapse flex-grow-0" id="navbar-content">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"> <a class="nav-link" href="#">Favorites</a></li>
-                    </ul>
-                </div>
-            </div>
-          </nav>
-
-          <div class="container-fluid" style="margin-top:80px">
-            <img class="img-fluid m-1" *ngFor="let img of imageService.getImages()" [src]="img.url" [alt]="img.title || 'Image'" />
-          </div>
-        </body>
-      </main>
+    <main class="container-fluid" style="margin-top:80px">
+      <router-outlet></router-outlet>
+    </main>
   `,
-  styleUrl: './app.css',
+  styleUrls: ['./app.css'],
 })
 export class App {
-  readonly imageService = inject(ImageService); 
-  constructor() { 
+  readonly imageService = inject(ImageService);
+
+  constructor() {
+    // keep fetching at app start so HomeComponent can display images immediately
     this.imageService.fetchImages();
   }
 }
