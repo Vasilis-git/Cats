@@ -14,6 +14,7 @@ jobs:
           node-version: '20'
       - run: npm ci
       - run: npm run build -- --configuration production --base-href "/Cats/"
+      - run: cp dist/Cats/index.html dist/Cats/404.html
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
