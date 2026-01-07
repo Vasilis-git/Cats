@@ -2,8 +2,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ master ]
+
 permissions:
   contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -13,8 +15,14 @@ jobs:
         with:
           node-version: '20'
       - run: npm ci
-      - run: npm run build -- --configuration production --base-href "/Cats/"
-      - run: cp dist/Cats/index.html dist/Cats/404.html
+      - run: npm install -g @angular/cli
+      - run: npm run build -- --configuration production --base-href "/Cats/" --output-path dist/Cats
+      - run: |
+          if [ -f dist/Cats/index.html ]; then
+            cp dist/Cats/index.html dist/Cats/404.html
+          else
+            echo "index.html not found — skipping 404.html copy"
+          fi
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
