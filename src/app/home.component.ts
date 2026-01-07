@@ -11,7 +11,13 @@ import { ImageData } from './ImageData';
   template: `
     <div class="container-fluid" style="margin-top:80px">
       <div class="d-inline-block m-1 position-relative" *ngFor="let img of images">
-        <img class="img-fluid d-inline-block img-thumbnail" [src]="img.url" [alt]="img.title || 'Image'" />
+        <img
+          class="img-fluid d-inline-block img-thumbnail focusable-img"
+          [src]="img.url"
+          [alt]="img.title || 'Image'"
+          role="button"
+          tabindex="0"
+        />
         <button class="btn btn-sm favorite-btn" [class.favorited]="isFav(img.id)" (click)="toggleFav(img)" title="Toggle favorite">
           <span aria-hidden="true">{{ isFav(img.id) ? '♥' : '♡' }}</span>
         </button>

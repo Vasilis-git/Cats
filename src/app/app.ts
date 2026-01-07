@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { ImageService } from './image.service';
+import { ImageFocusOverlayComponent } from './image-focus-overlay.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, ImageFocusOverlayComponent],
   template: `
     <head>
         <meta charset="utf-8">
@@ -29,6 +30,9 @@ import { ImageService } from './image.service';
     <main class="container-fluid" style="margin-top:80px">
       <router-outlet></router-outlet>
     </main>
+
+    <!-- global overlay for focusing images -->
+    <app-image-focus-overlay></app-image-focus-overlay>
   `,
   styleUrls: ['./app.css'],
 })

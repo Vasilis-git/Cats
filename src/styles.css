@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global interactive image styles so hover/focus works throughout the app */
+img[role="button"], .focusable-img, img.img-thumbnail {
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  will-change: transform;
+}
+img[role="button"]:hover, .focusable-img:hover, img.img-thumbnail:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+img[role="button"]:active, .focusable-img:active, img.img-thumbnail:active {
+  transform: scale(0.98);
+}
+img[role="button"]:focus, .focusable-img:focus, img.img-thumbnail:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0,123,255,0.18);
+}

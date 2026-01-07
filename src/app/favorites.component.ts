@@ -12,7 +12,11 @@ import { FavoritesService } from './favorites.service';
       <div *ngIf="favorites.length === 0" class="text-muted">No favorites yet.</div>
 
       <div class="d-inline-block m-1 position-relative" *ngFor="let img of favorites">
-        <img class="img-fluid d-inline-block img-thumbnail" [src]="img.url" [alt]="img.title || 'Image'" />
+        <img
+          class="img-fluid d-inline-block img-thumbnail focusable-img"
+          [src]="img.url"
+          [alt]="img.title || 'Image'"
+        />
         <button
           class="btn btn-sm favorite-btn favorited"
           (click)="remove(img.id)"
@@ -40,6 +44,22 @@ import { FavoritesService } from './favorites.service';
     .favorite-btn.favorited {
       color: #e25555;
       background: rgba(255,255,255,1);
+    }
+
+    /* make images feel interactive */
+    .focusable-img {
+      cursor: pointer;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .focusable-img:hover {
+      transform: scale(1.04);
+    }
+    .focusable-img:active {
+      transform: scale(0.98);
+    }
+    .focusable-img:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
     }
   `]
 })
